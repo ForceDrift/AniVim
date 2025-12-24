@@ -1,0 +1,8 @@
+#include <iostream>
+int main(int argc, char *argv[]) {
+  int nice = 10;
+  for (int i = 0; i < 20; i++) {
+    std::cout << i;
+  }
+  return 0;
+}
