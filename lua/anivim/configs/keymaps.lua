@@ -27,10 +27,29 @@ local function run_cpp_and_cleanup()
 	require("toggleterm").exec(cmd, 1, nil, "float")
 end
 
-vim.keymap.set("n", "<leader>rr", function()
-	if vim.bo.filetype == "cpp" then
+
+local M = {
+	["cpp"] = true,
+	["c"] = true,
+	["h"] = true
+}
+
+map("n", "<leader>rr", function()
+	if M[vim.bo.filetype] then
 		run_cpp_and_cleanup()
 	else
-		vim.notify("Not a C++ file", vim.log.levels.WARN)
+		vim.notify("Not a Valid C, H, or C++ file", vim.log.levels.WARN)
 	end
+	-- for key, value in pairs(M) do
+	-- 	if vim.bo.filetype == value then
+	-- 		run_cpp_and_cleanup()
+	-- 	else
+	-- 		vim.notify("Not A Valid C or C++ file", vim.log.levels.WARN)
+	-- 	end
+	-- end
+	-- if vim.bo.filetype == "cpp" or vim.bo.filetype == "c" then
+	-- 	run_cpp_and_cleanup()
+	-- else
+	-- 	vim.notify("Not a C++ file", vim.log.levels.WARN)
+	-- end
 end, { desc = "Compile, Run, and Cleanup C++ in Float" })
