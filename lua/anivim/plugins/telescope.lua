@@ -9,7 +9,9 @@ return {
 
 	config = function()
 		vim.keymap.set("n", "<space>f", require('telescope.builtin').find_files)
+		vim.keymap.set("n", "<space>g", require('telescope.builtin').lsp_references)
 	end,
+
 
 
 }

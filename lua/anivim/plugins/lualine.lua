@@ -3,7 +3,7 @@ return {
 	priority = 500,
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	config = function()
-		-- PULL COLORS HERE
+		-- pull colors here
 		local colors = require("anivim.configs.colors").palette
 
 		local theme = {
@@ -27,8 +27,8 @@ return {
 			},
 		}
 
-		-- [The rest of your existing lualine logic remains the same]
-		-- Make sure to use 'colors.black' in your process_sections gaps!
+		-- [the rest of your existing lualine logic remains the same]
+		-- make sure to use 'colors.black' in your process_sections gaps!
 		local empty = require('lualine.component'):extend()
 		function empty:draw(default_highlight)
 			self.status = ''
@@ -66,9 +66,9 @@ return {
 			sections = process_sections {
 				lualine_a = { { 'mode', fmt = function(str)
 					local mode_map = {
-						['NORMAL'] = 'セーバーNORMAL',
-						['INSERT'] = '書く- INSERT',
-						['VISUAL'] = '見る - VISUAL'
+						['normal'] = 'セーバーnormal',
+						['insert'] = '書く- insert',
+						['visual'] = '見る - visual'
 					}
 					return mode_map[str] or str
 				end } },
