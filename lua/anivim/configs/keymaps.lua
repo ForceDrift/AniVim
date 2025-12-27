@@ -16,17 +16,23 @@ map("n", "<leader>nt", "<cmd>exe v:count1 . 'ToggleTerm'<cr>", { desc = "New Ter
 
 local function run_cpp_and_cleanup()
 	local dir = vim.fn.expand("%:p:h")
-	local file_path = vim.fn.expand("%:p")
-	local output_name = vim.fn.expand("%:t:r")
+	local file_ext = vim.fn.expand("%:e")
+	local output_name = "temp_runner" -- Constant name for easier cleanup
+	local compiler = "g++"
+	local pattern = "*.cpp"
+
+	if file_ext == "c" or file_ext == "h" then
+		compiler = "gcc"
+		pattern = "*.c"
+	end
 
 	local cmd = string.format(
-		"cd %s && g++ %s -o %s && ./%s ; rm %s",
-		dir, file_path, output_name, output_name, output_name
+		"cd %s && %s %s -o %s && ./%s ; rm %s",
+		dir, compiler, pattern, output_name, output_name, output_name
 	)
 
-	require("toggleterm").exec(cmd, 1, nil, "float")
+	require("toggleterm").exec(cmd)
 end
-
 
 local M = {
 	["cpp"] = true,
@@ -40,16 +46,4 @@ map("n", "<leader>rr", function()
 	else
 		vim.notify("Not a Valid C, H, or C++ file", vim.log.levels.WARN)
 	end
-	-- for key, value in pairs(M) do
-	-- 	if vim.bo.filetype == value then
-	-- 		run_cpp_and_cleanup()
-	-- 	else
-	-- 		vim.notify("Not A Valid C or C++ file", vim.log.levels.WARN)
-	-- 	end
-	-- end
-	-- if vim.bo.filetype == "cpp" or vim.bo.filetype == "c" then
-	-- 	run_cpp_and_cleanup()
-	-- else
-	-- 	vim.notify("Not a C++ file", vim.log.levels.WARN)
-	-- end
 end, { desc = "Compile, Run, and Cleanup C++ in Float" })

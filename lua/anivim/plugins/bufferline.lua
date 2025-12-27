@@ -8,16 +8,14 @@ return {
 			options = {
 				mode = "buffers",
 				separator_style = "slant",
-				-- THIS PART FIXES THE OVERLAP
 				offsets = {
 					{
 						filetype = "neo-tree",
-						text = "󰙅 EXPLORER", -- Title shown above the tree
+						text = "󰙅 EXPLORER",
 						text_align = "center",
-						separator = true, -- Keeps the separator line consistent
+						separator = true,
 					}
 				},
-				-- Optional: Force the background of the offset to match your theme
 				highlights = {
 					fill = {
 						bg = colors.black,

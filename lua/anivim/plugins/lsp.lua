@@ -25,7 +25,7 @@ return {
 
 				capabilities = capabilities,
 			})
-			local servers = { "lua_ls", "rust_analyzer", "ts_ls", 'clangd' } -- your list
+			local servers = { "lua_ls", "rust_analyzer", "ts_ls", 'clangd' }
 			vim.lsp.enable(servers)
 
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -33,15 +33,12 @@ return {
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					local opts = { buffer = args.buf }
 
-					-- REFACTORING & NAVIGATION KEYMAPS
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- Rename symbol
-					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code actions (fixes)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
-					-- AUTO-FORMAT ON SAVE
-					-- We only create this if the LSP client supports formatting
 					if client and client.supports_method("textDocument/formatting") then
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							buffer = args.buf,
