@@ -13,9 +13,13 @@ map("n", "<RIGHT>", "<NOP>", opts)
 
 map("t", "jk", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
 map("n", "<leader>nt", "<cmd>exe v:count1 . 'ToggleTerm'<cr>", { desc = "New Terminal" })
-map("n", "<A-h>", ':bprevious<CR>')
-map("n", "<A-l>", ':bnext<CR>')
+map("n", "<C-h>", ':bprevious<CR>')
+map("n", "<C-l>", ':bnext<CR>')
+
+map("n", "<A-h>",'<C-w>h' );
+map("n", "<A-l>",'<C-w>l' );
 local function run_cpp_and_cleanup()
+
 	local dir = vim.fn.expand("%:p:h")
 	local file_ext = vim.fn.expand("%:e")
 	local output_name = "temp_runner" -- Constant name for easier cleanup
