@@ -7,3 +7,9 @@
 Requires Neovim 0.10+
 
 So I really wanted to create my own nvim config for the longest time after using a distro (lazy vim). As usual, it features a plugin manager, lsp and other cool plugins. I am probably going to add more to this later.
+
+## Download
+
+```sh
+git clone https://github.com/ForceDrift/AniVim.git ~/.config/nvim
+```
