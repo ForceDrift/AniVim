@@ -13,14 +13,15 @@ map("n", "<RIGHT>", "<NOP>", opts)
 
 map("t", "jk", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
 map("n", "<leader>nt", "<cmd>exe v:count1 . 'ToggleTerm'<cr>", { desc = "New Terminal" })
-map("n", "<C-h>", ':bprevious<CR>')
-map("n", "<C-l>", ':bnext<CR>')
+map("n", "<C-h>", ":bprevious<CR>")
+map("n", "<C-l>", ":bnext<CR>")
 
-map("n", "<A-h>",'<C-w>h' );
-map("n", "<A-l>",'<C-w>l' );
+map("n", "<A-h>", "<C-w>h")
+map("n", "<A-l>", "<C-w>l")
+
 local function run_cpp_and_cleanup()
-
 	local dir = vim.fn.expand("%:p:h")
+	local current_file = vim.fn.expand("%:t")
 	local file_ext = vim.fn.expand("%:e")
 	local output_name = "temp_runner" -- Constant name for easier cleanup
 	local compiler = "g++"
@@ -32,8 +33,14 @@ local function run_cpp_and_cleanup()
 	end
 
 	local cmd = string.format(
-		"cd %s && %s %s -o %s && ./%s ; rm %s",
-		dir, compiler, pattern, output_name, output_name, output_name
+		"cd %s && %s %s -o temp_exec && ./temp_exec ; rm temp_exec",
+		dir,
+		compiler,
+		current_file
+	-- pattern,
+	-- output_name,
+	-- output_name,
+	-- output_name
 	)
 
 	require("toggleterm").exec(cmd)
@@ -42,7 +49,7 @@ end
 local M = {
 	["cpp"] = true,
 	["c"] = true,
-	["h"] = true
+	["h"] = true,
 }
 
 map("n", "<leader>rr", function()
